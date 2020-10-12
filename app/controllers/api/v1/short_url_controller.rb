@@ -1,4 +1,4 @@
-class Api::V1::ShortUrlController < ApplicationController
+class Api::V1::ShortUrlController < Api::V1::BaseController
 
     before_action :generate_short_url, only: [:create]
 
