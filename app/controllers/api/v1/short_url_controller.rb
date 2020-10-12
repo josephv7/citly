@@ -13,7 +13,7 @@ class Api::V1::ShortUrlController < ApplicationController
 
     def find_original_url
         short_url = ShortUrl.where(url_hash: params[:short_url]).first
-        render json: short_url
+        redirect_to short_url[:url]
     end
 
 
