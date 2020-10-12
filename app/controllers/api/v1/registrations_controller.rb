@@ -7,6 +7,7 @@ class Api::V1::RegistrationsController < Devise::RegistrationsController
 
         if resource.persisted?
             render json: { user: resource, notice: "Account Created Successfully!" }
+            # Should redirect to the sign in route
         else
             render json: { errors: resource.errors }, status: :unprocessable_entity
         end

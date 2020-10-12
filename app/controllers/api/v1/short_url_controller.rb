@@ -3,7 +3,7 @@ class Api::V1::ShortUrlController < Api::V1::BaseController
     before_action :generate_short_url, only: [:create]
 
     def create
-        @url_entry = ShortUrl.new(short_url_params.merge(url_hash: @short_url))
+        @url_entry = ShortUrl.new(short_url_params.merge(url_hash: @short_url,user_id: current_user.id))
         
         unless @url_entry.save
             respond_with_model_error @short_url
@@ -27,6 +27,6 @@ class Api::V1::ShortUrlController < Api::V1::BaseController
         end
 
         def short_url_params
-            params.permit(:user_id, :url)
+            params.permit(:url)
         end
 end
