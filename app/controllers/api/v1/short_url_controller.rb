@@ -11,6 +11,11 @@ class Api::V1::ShortUrlController < ApplicationController
           render json: { notice: "Data Inserted", data: @url_entry }, status: :ok
     end
 
+    def find_original_url
+        short_url = ShortUrl.where(url_hash: params[:short_url]).first
+        render json: short_url
+    end
+
 
     private
 
@@ -24,5 +29,4 @@ class Api::V1::ShortUrlController < ApplicationController
         def short_url_params
             params.permit(:user_id, :url)
         end
-
 end
