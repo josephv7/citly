@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_10_12_090248) do
+ActiveRecord::Schema.define(version: 2020_10_12_134231) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -20,6 +20,9 @@ ActiveRecord::Schema.define(version: 2020_10_12_090248) do
     t.string "url_hash"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.bigint "user_id", null: false
+    t.index ["user_id", "url"], name: "index_unique_url_per_user", unique: true
+    t.index ["user_id"], name: "index_short_urls_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -35,4 +38,5 @@ ActiveRecord::Schema.define(version: 2020_10_12_090248) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "short_urls", "users"
 end
