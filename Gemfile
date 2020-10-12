@@ -25,6 +25,7 @@ gem 'bcrypt', '~> 3.1.7'
 
 # Use devise for authentication
 gem 'devise'
+gem 'devise-jwt'
 
 # For CORS
 gem 'rack-cors'
