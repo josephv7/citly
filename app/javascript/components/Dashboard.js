@@ -1,12 +1,12 @@
 import React from "react";
 import Card from "./Card";
-import Form from "./Form";
+import UrlShortner from "./UrlShortner";
 
 const Dashboard = () => {
   return (
     <div>
       <Card title={"Shorten URL"}>
-        <Form />
+        <UrlShortner />
       </Card>
     </div>
   );
