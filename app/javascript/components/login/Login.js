@@ -1,7 +1,13 @@
-import React from "react"
+import React from "react";
+import Card from "../Card";
+import Form from "../Form";
 
 const Login = () => {
-    return <h1>Hello</h1>
-}
+  return (
+    <Card title={"Login"}>
+      <Form />
+    </Card>
+  );
+};
 
-export default Login
+export default Login;
