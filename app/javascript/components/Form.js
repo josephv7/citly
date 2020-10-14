@@ -5,25 +5,40 @@ const Form = ({ type }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  
   // const sendParams = (e) => {
   //   setEmail(e.target.value);
   //   console.log(emailInput.current.value);
   // };
-  const //   const sendData = ({history}) => {
-    //    API CALL
-    //  Response
-    // if true
-    //  history.push('/url-shortnere')
-    // catch error
-    //   }
+  //   const sendData = ({history}) => {
+  //    API CALL
+  //  Response
+  // if true
+  //  history.push('/url-shortnere')
+  // catch error
+  //   }
 
-    loginUser = async (e) => {
-      e.preventDefault();
-      const response = await authenticationAPI.login({ email, password });
-      localStorage.setItem('authToken', response.data.user.authentication_token);
-      console.log(response.data.user.authentication_token)
-    };
+  const loginUser = async (e) => {
+    e.preventDefault();
+    const response = await authenticationAPI.login({ email, password });
+    localStorage.setItem("authToken", response.data.user.authentication_token);
+    console.log(response.data.user.authentication_token);
+  };
+
+  const signupUser = async (e) => {
+    e.preventDefault();
+    const response = await authenticationAPI.signup({
+      email,
+      password,
+      password_confirmation: password,
+    });
+    console.log(response.data.user);
+  };
+
+  const submitForm = async (e) => {
+    e.preventDefault();
+    if (type == "login") loginUser();
+    else if (type == "signup") signupUser();
+  };
 
   return (
     <form>
@@ -48,7 +63,7 @@ const Form = ({ type }) => {
           onChange={(e) => setPassword(e.target.value)}
         />
       </div>
-      <button type="submit" className="btn btn-primary" onClick={loginUser}>
+      <button type="submit" className="btn btn-primary" onClick={submitForm}>
         Submit
       </button>
     </form>

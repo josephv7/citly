@@ -6,7 +6,7 @@ import Form from "./Form";
 const Login = () => {
   return (
     <Card title={"Login"}>
-      <Form />
+      <Form type={"login"}/>
     </Card>
   );
 };
