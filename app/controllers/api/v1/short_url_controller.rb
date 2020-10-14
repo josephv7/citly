@@ -11,9 +11,15 @@ class Api::V1::ShortUrlController < Api::V1::BaseController
           render json: { notice: "Data Inserted", data: @url_entry }, status: :ok
     end
 
+    
     def find_original_url
         short_url = ShortUrl.where(url_hash: params[:short_url]).first
         redirect_to short_url[:url]
+    end
+
+    def get_user_urls
+        @urlList = ShortUrl.where(user_id: url_list_params[:user_id])
+        render json: { notice: "Data Fetched Successfully", data: @urlList, host: request.host_with_port}, status: :ok
     end
 
 
@@ -28,5 +34,9 @@ class Api::V1::ShortUrlController < Api::V1::BaseController
 
         def short_url_params
             params.permit(:url, :user_id)
+        end
+
+        def url_list_params
+            params.permit(:user_id)
         end
 end

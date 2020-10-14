@@ -1,36 +1,64 @@
-import React, { useState } from "react";
-import urlShortnerAPI from "../apis/urlShortner"
+import React, { useState, useEffect } from "react";
+import urlShortnerAPI from "../apis/urlShortner";
+import UrlList from "./UrlList";
+import Card from "./Card";
+
 
 const UrlShortner = ({ type }) => {
   const [url, setUrl] = useState("");
+  const [success, setSuccess] = useState(false);
+  const [userUrls, setUserUrls] = useState([]);
   const sendParams = (e) => {
     setUrl(e.target.value);
     console.log(url);
   };
-  
+
   async function submit(e) {
     e.preventDefault();
-      console.log('here 1')
-    const response = await urlShortnerAPI.shorten({url,user_id:1})
+    setSuccess(false)
+    console.log("here 1");
+    const response = await urlShortnerAPI.shorten({ url, user_id: 1 });
+    console.log(response);
+    
+    if(response.status == 200)
+      setSuccess(true)
   }
 
+  const fetchUserUrlList = async () => {
+    const response = await urlShortnerAPI.listUserUrls(1)
+    console.log(response)
+    setUserUrls(response.data.data)
+
+  }
+
+  useEffect(() => {
+    console.log("use effect success");
+    fetchUserUrlList()
+  }, [success]);
+
   return (
-    <form>
-      <div className="form-group">
-        <label htmlFor="exampleInputEmail1">URL</label>
-        <input
-          type="text"
-          className="form-control"
-          aria-describedby="emailHelp"
-          placeholder="Enter URL"
-          onChange={sendParams}
-        />
-      </div>
-      
-      <button type="submit" className="btn btn-primary"  onClick={submit}>
-        Submit
-      </button>
-    </form >
+    <div>
+      <Card title={"Shorten URL"}>
+      <form>
+        <div className="form-group">
+          <label htmlFor="exampleInputEmail1">URL</label>
+          <input
+            type="text"
+            className="form-control"
+            aria-describedby="emailHelp"
+            placeholder="Enter URL"
+            onChange={sendParams}
+          />
+        </div>
+
+        <button type="submit" className="btn btn-primary" onClick={submit}>
+          Submit
+        </button>
+      </form>
+      </Card>
+
+      <UrlList userUrlList={userUrls}/>
+    </div>
   );
 };
 
