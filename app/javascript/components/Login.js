@@ -1,6 +1,7 @@
 import React from "react";
-import Card from "../Card";
-import Form from "../Form";
+import Card from "./Card";
+import Form from "./Form";
+
 
 const Login = () => {
   return (
