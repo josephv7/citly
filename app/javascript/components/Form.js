@@ -1,37 +1,28 @@
 import React, { useState, useRef } from "react";
 import authenticationAPI from "../apis/authentication";
+import { useHistory } from "react-router-dom";
 
 const Form = ({ type }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const history = useHistory();
 
-  // const sendParams = (e) => {
-  //   setEmail(e.target.value);
-  //   console.log(emailInput.current.value);
-  // };
-  //   const sendData = ({history}) => {
-  //    API CALL
-  //  Response
-  // if true
-  //  history.push('/url-shortnere')
-  // catch error
-  //   }
-
-  const loginUser = async (e) => {
-    e.preventDefault();
+  const loginUser = async () => {
     const response = await authenticationAPI.login({ email, password });
     localStorage.setItem("authToken", response.data.user.authentication_token);
     console.log(response.data.user.authentication_token);
   };
 
-  const signupUser = async (e) => {
-    e.preventDefault();
+  const signupUser = async () => {
     const response = await authenticationAPI.signup({
       email,
       password,
       password_confirmation: password,
     });
     console.log(response.data.user);
+    localStorage.setItem("authToken", response.data.user.authentication_token);
+    console.log(response.data.user.authentication_token);
+    history.push("/");
   };
 
   const submitForm = async (e) => {
