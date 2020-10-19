@@ -3,10 +3,12 @@ import urlShortnerAPI from "../apis/urlShortner";
 import UrlList from "./UrlList";
 import Card from "./Card";
 
+
 const UrlShortner = ({ type }) => {
   const [url, setUrl] = useState("");
   const [success, setSuccess] = useState(false);
   const [userUrls, setUserUrls] = useState([]);
+ 
   const sendParams = (e) => {
     setUrl(e.target.value);
     console.log(url);
@@ -41,32 +43,32 @@ const UrlShortner = ({ type }) => {
   }, []);
 
   return (
-    <div>
-      <Card title={"Citly - A URL Shortener"}>
-        <label htmlFor="exampleInputEmail1">Enter URL Here</label>
-        <form className="form-inline">
-          <div className="form-group w-75">
-            <input
-              type="text"
-              className="form-control w-100"
-              aria-describedby="LongUrl"
-              placeholder="Enter Complete URL Here"
-              onChange={sendParams}
-            />
-          </div>
+      <div>
+        <Card title={"Citly - A URL Shortener"}>
+          <label htmlFor="exampleInputEmail1">Enter URL Here</label>
+          <form className="form-inline">
+            <div className="form-group w-75">
+              <input
+                type="text"
+                className="form-control w-100"
+                aria-describedby="LongUrl"
+                placeholder="Enter Complete URL Here"
+                onChange={sendParams}
+              />
+            </div>
 
-          <button
-            type="submit"
-            className="btn btn-primary ml-1"
-            onClick={submit}
-          >
-            Submit
-          </button>
-        </form>
-      </Card>
+            <button
+              type="submit"
+              className="btn btn-primary ml-1"
+              onClick={submit}
+            >
+              Submit
+            </button>
+          </form>
+        </Card>
 
-      <UrlList userUrlList={userUrls} />
-    </div>
+        <UrlList userUrlList={userUrls} />
+      </div>
   );
 };
 

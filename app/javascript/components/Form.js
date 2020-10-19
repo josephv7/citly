@@ -1,16 +1,24 @@
 import React, { useState, useRef } from "react";
 import authenticationAPI from "../apis/authentication";
 import { useHistory } from "react-router-dom";
+import { useToasts } from "react-toast-notifications";
 
 const Form = ({ type }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const history = useHistory();
+  const { addToast } = useToasts();
 
   const loginUser = async () => {
-    const response = await authenticationAPI.login({ email, password });
-    localStorage.setItem("authToken", response.data.user.authentication_token);
-    console.log(response.data.user.authentication_token);
+    try {
+      const response = await authenticationAPI.login({ email, password });
+      console.log(`success ${response}`);
+      localStorage.setItem("authToken", response.data.user.authentication_token);
+      history.push('/dashboard')
+    } catch (error) {
+      if (error.response.status === 401)
+        addToast("Invalid Username or Password", { appearance: "error" });
+    }
   };
 
   const signupUser = async () => {

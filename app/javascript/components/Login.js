@@ -1,16 +1,18 @@
 import React from "react";
 import Card from "./Card";
 import Form from "./Form";
-
+import { ToastProvider } from "react-toast-notifications";
 const Login = ({ history }) => {
   const changeLocation = () => {
     history.push("/signup");
   };
   return (
-    <Card title={"Login"}>
-      <Form type={"login"}/>
-      <button onClick={changeLocation}>Sign Up</button>
-    </Card>
+    <ToastProvider>
+      <Card title={"Login"}>
+        <Form type={"login"} />
+        <button onClick={changeLocation}>Sign Up</button>
+      </Card>
+    </ToastProvider>
   );
 };
 
