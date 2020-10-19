@@ -16,7 +16,7 @@ const App = () => {
     <Router>
       <Switch>
         <Route path="/signup" component={Signup} />
-        <Route path="/logs" component={Logs} />
+        <Route path="/logs/:id" component={Logs} />
         <PrivateRoute
           path="/dashboard"
           redirectRoute="/"

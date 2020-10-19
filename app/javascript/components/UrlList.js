@@ -1,6 +1,13 @@
 import React, { useState, useEffect } from "react";
+import { useHistory } from "react-router-dom";
 import Card from "./Card";
 const UrlList = ({ userUrlList }) => {
+  const history = useHistory();
+  const showLogs = (id) => {
+    history.push({
+      pathname: `/logs/${id}`,
+    });
+  };
   return (
     <Card>
       {/* <p>{JSON.stringify(userUrlList)}</p> */}
@@ -17,6 +24,9 @@ const UrlList = ({ userUrlList }) => {
               <a target="_blank" href={`https://${item.redirectionUrl}`}>
                 {item.redirectionUrl}
               </a>
+            </button>
+            <button type="button" onClick={() => showLogs(item.id)}>
+              Logs
             </button>
           </div>
         );
