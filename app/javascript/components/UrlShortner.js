@@ -24,9 +24,9 @@ const UrlShortner = ({ type }) => {
 
   const fetchUserUrlList = async () => {
     // if (success) {
-      const response = await urlShortnerAPI.listUserUrls(1);
-      console.log(response);
-      setUserUrls(response.data.urlList);
+    const response = await urlShortnerAPI.listUserUrls(1);
+    console.log(response);
+    setUserUrls(response.data.urlList);
     // }
   };
 
@@ -38,24 +38,28 @@ const UrlShortner = ({ type }) => {
   useEffect(() => {
     console.log("initial fetch");
     fetchUserUrlList();
-  },[])
+  }, []);
 
   return (
     <div>
-      <Card title={"Shorten URL"}>
-        <form>
-          <div className="form-group">
-            <label htmlFor="exampleInputEmail1">URL</label>
+      <Card title={"Citly - A URL Shortener"}>
+        <label htmlFor="exampleInputEmail1">Enter URL Here</label>
+        <form className="form-inline">
+          <div className="form-group w-75">
             <input
               type="text"
-              className="form-control"
-              aria-describedby="emailHelp"
-              placeholder="Enter URL"
+              className="form-control w-100"
+              aria-describedby="LongUrl"
+              placeholder="Enter Complete URL Here"
               onChange={sendParams}
             />
           </div>
 
-          <button type="submit" className="btn btn-primary" onClick={submit}>
+          <button
+            type="submit"
+            className="btn btn-primary ml-1"
+            onClick={submit}
+          >
             Submit
           </button>
         </form>
