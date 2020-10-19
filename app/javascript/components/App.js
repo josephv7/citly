@@ -5,7 +5,7 @@ import Logs from "./Logs";
 import Dashboard from "./Dashboard";
 import PrivateRoute from "./PrivateRoute";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import setAuthTokenHeader from "../apis"
+import setAuthTokenHeader from "../apis/index"
 
 const App = () => {
   const authenticated = () => {
