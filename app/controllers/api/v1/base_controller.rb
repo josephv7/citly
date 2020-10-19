@@ -1,5 +1,5 @@
 class Api::V1::BaseController < ApplicationController
-    # before_action :authenticate_user_using_token
+    before_action :authenticate_user_using_token
 
         respond_to :json
     
