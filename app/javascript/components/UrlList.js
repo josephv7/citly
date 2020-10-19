@@ -14,7 +14,7 @@ const UrlList = ({ userUrlList }) => {
               {item.url}
             </button>
             <button type="button" className="btn btn-light w-50">
-              <a target="_blank" href={item.redirectionUrl}>
+              <a target="_blank" href={`https://${item.redirectionUrl}`}>
                 {item.redirectionUrl}
               </a>
             </button>
