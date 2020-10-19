@@ -7,7 +7,7 @@ const UrlList = ({ userUrlList }) => {
       {userUrlList.map((item, index) => {
           return(<div  key={index}>
             <h3>{item.url}</h3>
-              <button>{item.url_hash}</button>
+              <button>{item.urlHash}</button>
               </div>
           )
       })}

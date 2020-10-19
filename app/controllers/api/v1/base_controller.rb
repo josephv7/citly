@@ -1,6 +1,7 @@
 class Api::V1::BaseController < ApplicationController
     # before_action :authenticate_user_using_token
 
+        respond_to :json
     
 
         def authenticate_user_using_token

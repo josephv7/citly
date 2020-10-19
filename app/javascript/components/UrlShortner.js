@@ -26,7 +26,7 @@ const UrlShortner = ({ type }) => {
     // if (success) {
       const response = await urlShortnerAPI.listUserUrls(1);
       console.log(response);
-      setUserUrls(response.data.data);
+      setUserUrls(response.data.urlList);
     // }
   };
 

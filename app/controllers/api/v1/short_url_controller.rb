@@ -19,8 +19,8 @@ class Api::V1::ShortUrlController < Api::V1::BaseController
     end
 
     def get_user_urls
-        @urlList = ShortUrl.where(user_id: url_list_params[:user_id])
-        render json: { notice: "Data Fetched Successfully", data: @urlList, host: request.host_with_port}, status: :ok
+        @url_list = ShortUrl.where(user_id: url_list_params[:user_id])
+        # render json: { notice: "Data Fetched Successfully", data: @url_list, host: request.host_with_port}, status: :ok
     end
 
 
