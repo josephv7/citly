@@ -1,9 +1,10 @@
 class Api::V1::ShortUrlController < Api::V1::BaseController
 
     before_action :generate_short_url, only: [:create]
+    skip_before_action :authenticate_user_using_token, only: [:find_original_url]
 
     def create
-        @url_entry = ShortUrl.new(short_url_params.merge(url_hash: @short_url,user_id: current_user.id))
+        @url_entry = ShortUrl.new(short_url_params.merge(url_hash: @short_url))
         
         unless @url_entry.save
             respond_with_model_error @short_url
@@ -11,9 +12,16 @@ class Api::V1::ShortUrlController < Api::V1::BaseController
           render json: { notice: "Data Inserted", data: @url_entry }, status: :ok
     end
 
+    
     def find_original_url
         short_url = ShortUrl.where(url_hash: params[:short_url]).first
+        Log.create(short_url_id: short_url[:id],user_id: short_url[:user_id])
         redirect_to short_url[:url]
+    end
+
+    def get_user_urls
+        @url_list = ShortUrl.where(user_id: url_list_params[:user_id]).reverse_order
+        # render json: { notice: "Data Fetched Successfully", data: @url_list, host: request.host_with_port}, status: :ok
     end
 
 
@@ -27,6 +35,10 @@ class Api::V1::ShortUrlController < Api::V1::BaseController
         end
 
         def short_url_params
-            params.permit(:url)
+            params.permit(:url, :user_id)
+        end
+
+        def url_list_params
+            params.permit(:user_id)
         end
 end

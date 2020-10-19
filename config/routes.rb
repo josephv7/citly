@@ -6,4 +6,5 @@ Rails.application.routes.draw do
   draw :devise
   draw :api
   root "home#index"
+  get '*path', to: 'home#index', via: :all
 end
