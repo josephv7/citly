@@ -5,8 +5,10 @@ const UrlList = ({ userUrlList }) => {
     <Card>
       {/* <p>{JSON.stringify(userUrlList)}</p> */}
       {userUrlList.map((item, index) => {
-          return(
-              <button key={index}>{item.url_hash}</button>
+          return(<div  key={index}>
+            <h3>{item.url}</h3>
+              <button>{item.url_hash}</button>
+              </div>
           )
       })}
     </Card>
