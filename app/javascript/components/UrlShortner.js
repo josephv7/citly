@@ -23,17 +23,22 @@ const UrlShortner = ({ type }) => {
   }
 
   const fetchUserUrlList = async () => {
-    if (success) {
+    // if (success) {
       const response = await urlShortnerAPI.listUserUrls(1);
       console.log(response);
       setUserUrls(response.data.data);
-    }
+    // }
   };
 
   useEffect(() => {
     console.log("use effect success");
     fetchUserUrlList();
   }, [success]);
+
+  useEffect(() => {
+    console.log("initial fetch");
+    fetchUserUrlList();
+  },[])
 
   return (
     <div>
