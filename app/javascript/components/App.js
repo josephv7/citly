@@ -1,16 +1,22 @@
-import React from "react";
+import React, {useEffect} from "react";
 import Login from "./Login";
 import Signup from "./Signup";
 import Logs from "./Logs";
 import Dashboard from "./Dashboard";
 import PrivateRoute from "./PrivateRoute";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import setAuthTokenHeader from "../apis"
 
 const App = () => {
   const authenticated = () => {
     console.log(localStorage.getItem("authToken"));
     return !(localStorage.getItem("authToken") === null);
   };
+
+  useEffect(() => {
+    console.log('app use effect' + localStorage.getItem("authToken"))
+    setAuthTokenHeader(localStorage.getItem("authToken"))
+  },[])
 
   return (
     <Router>

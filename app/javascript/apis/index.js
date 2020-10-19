@@ -1,14 +1,12 @@
 import axios from "axios";
 
-axios.defaults.headers = {
+
+const setAuthTokenHeader = (token) => {
+  axios.defaults.headers = {
     Accept: "application/json",
     "Content-Type": "application/json",
+    "X-Auth-Token": `${token}`,
   };
-  
-  const setAuthTokenHeader = token => {
-    axios.defaults.headers = {
-      "X-Auth-Token": `${token}`,
-    };
-  };
+};
 
-  export default setAuthTokenHeader
+export default setAuthTokenHeader;

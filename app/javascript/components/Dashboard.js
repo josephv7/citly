@@ -1,8 +1,15 @@
-import React from "react";
+import React, { useEffect } from "react";
 import UrlShortner from "./UrlShortner";
 import Navbar from "./Navbar";
+import setAuthTokenHeader from "../apis"
 import { ToastProvider } from "react-toast-notifications";
-const Dashboard = () => {
+const Dashboard = ({ children }) => {
+  
+  useEffect(() => {
+    console.log('dashboard use effect')
+    setAuthTokenHeader(localStorage.getItem("authToken"));
+  }, []);
+
   return (
     <div>
       <ToastProvider>

@@ -1,27 +1,26 @@
 import React, { useEffect, useState } from "react";
+import Card from "./Card";
 import fetchLogs from "../apis/logs";
 import { useParams } from "react-router-dom";
 import { ToastProvider, useToasts } from "react-toast-notifications";
 
 const Logs = () => {
-  const { addToast } = useToasts();
   let { id } = useParams();
-  const [logList, setState] = useState(initialState);
-
+  const [logList, setState] = useState([]);
+  // const { addToast } = useToasts();
   useEffect(async () => {
     try {
       const response = await fetchLogs(id);
-      setState(response.logList);
+      setState(response.data.logList);
     } catch (error) {
-      if (error.response.status === 401)
-        addToast("No Authorization", { appearance: "error" });
+      if (error.response.status === 401) console.log(error);
     }
   }, []);
 
   return (
     <ToastProvider>
       <Card>
-        {logList.map((item, index) => {
+        {logList?.map((item, index) => {
           return (
             <div
               className="d-flex flex-row justify-content-between align-items-center w-100 flex-wrap"
@@ -32,7 +31,7 @@ const Logs = () => {
                 className="btn btn-light w-50 my-1"
                 disabled
               >
-                {item.timestamp}
+                {item.timeStamp}
               </button>
             </div>
           );
