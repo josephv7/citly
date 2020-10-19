@@ -2,6 +2,7 @@ import React, { useState, useRef } from "react";
 import authenticationAPI from "../apis/authentication";
 import { useHistory } from "react-router-dom";
 import { useToasts } from "react-toast-notifications";
+import _ from "lodash";
 
 const Form = ({ type }) => {
   const [email, setEmail] = useState("");
@@ -13,8 +14,11 @@ const Form = ({ type }) => {
     try {
       const response = await authenticationAPI.login({ email, password });
       console.log(`success ${response}`);
-      localStorage.setItem("authToken", response.data.user.authentication_token);
-      history.push('/dashboard')
+      localStorage.setItem(
+        "authToken",
+        response.data.user.authentication_token
+      );
+      history.push("/dashboard");
     } catch (error) {
       if (error.response.status === 401)
         addToast("Invalid Username or Password", { appearance: "error" });
@@ -22,15 +26,26 @@ const Form = ({ type }) => {
   };
 
   const signupUser = async () => {
-    const response = await authenticationAPI.signup({
-      email,
-      password,
-      password_confirmation: password,
-    });
-    console.log(response.data.user);
-    localStorage.setItem("authToken", response.data.user.authentication_token);
-    console.log(response.data.user.authentication_token);
-    history.push("/");
+    try {
+      const response = await authenticationAPI.signup({
+        email,
+        password,
+        password_confirmation: password,
+      });
+      console.log(response.data.user);
+      localStorage.setItem(
+        "authToken",
+        response.data.user.authentication_token
+      );
+      history.push("/dashboard");
+      console.log(response.data.user.authentication_token);
+    } catch (error) {
+      if (error.response.status === 422)
+        console.log(error.response.data.errors);
+      _.forEach(error.response.data.errors, (value, key) => {
+        addToast(`${key} ${value}`, { appearance: "error", autoDismiss: true });
+      });
+    }
   };
 
   const submitForm = async (e) => {
@@ -45,11 +60,9 @@ const Form = ({ type }) => {
         <label htmlFor="exampleInputEmail1">Email address</label>
         <input
           type="email"
-          // ref={emailInput}
           className="form-control"
           aria-describedby="emailHelp"
           placeholder="Enter email"
-          // onChange={(e) => setEmail(e.target.value)}
           onChange={(e) => setEmail(e.target.value)}
         />
       </div>
@@ -62,7 +75,12 @@ const Form = ({ type }) => {
           onChange={(e) => setPassword(e.target.value)}
         />
       </div>
-      <button type="submit" className="btn btn-primary" onClick={submitForm}>
+      <button
+        type="submit"
+        className="btn btn-primary"
+        onClick={submitForm}
+        disabled={email.length === 0 || password.length === 0}
+      >
         Submit
       </button>
     </form>

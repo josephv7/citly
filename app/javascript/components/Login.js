@@ -10,7 +10,11 @@ const Login = ({ history }) => {
     <ToastProvider>
       <Card title={"Login"}>
         <Form type={"login"} />
-        <button onClick={changeLocation}>Sign Up</button>
+        <div className="d-flex flex-row justify-content-end">
+          <button onClick={changeLocation} className="btn btn-link">
+            Not a User ? Register
+          </button>
+        </div>
       </Card>
     </ToastProvider>
   );
