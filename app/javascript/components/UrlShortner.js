@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import urlShortnerAPI from "../apis/urlShortner";
 import UrlList from "./UrlList";
 import Card from "./Card";
-
+import setAuthTokenHeader from "../apis/index";
 import { useHistory } from "react-router-dom";
 import { useToasts } from "react-toast-notifications";
 
@@ -33,6 +33,7 @@ const UrlShortner = ({ type }) => {
   }
 
   const fetchUserUrlList = async () => {
+    setAuthTokenHeader(localStorage.getItem("authToken"));
     try {
       const response = await urlShortnerAPI.listUserUrls(1);
       setUserUrls(response.data.urlList);
