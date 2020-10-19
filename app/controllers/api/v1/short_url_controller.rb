@@ -14,6 +14,7 @@ class Api::V1::ShortUrlController < Api::V1::BaseController
     
     def find_original_url
         short_url = ShortUrl.where(url_hash: params[:short_url]).first
+        Log.create(short_url_id: short_url[:id],user_id: short_url[:user_id])
         redirect_to short_url[:url]
     end
 
