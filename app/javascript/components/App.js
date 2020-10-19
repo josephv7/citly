@@ -1,6 +1,7 @@
 import React from "react";
 import Login from "./Login";
 import Signup from "./Signup";
+import Logs from "./Logs";
 import Dashboard from "./Dashboard";
 import PrivateRoute from "./PrivateRoute";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
@@ -15,6 +16,7 @@ const App = () => {
     <Router>
       <Switch>
         <Route path="/signup" component={Signup} />
+        <Route path="/logs" component={Logs} />
         <PrivateRoute
           path="/dashboard"
           redirectRoute="/"
