@@ -10,15 +10,12 @@ const UrlList = ({ userUrlList }) => {
             className="d-flex flex-row justify-content-between align-items-center w-100 flex-wrap"
             key={index}
           >
-            <button type="button" className="btn btn-light w-50" disabled>
+            <button type="button" className="btn btn-light w-50 my-1" disabled>
               {item.url}
             </button>
             <button type="button" className="btn btn-light w-50">
-              <a
-                target="_blank"
-                href={`http://localhost:3000/api/v1/${item.urlHash}`}
-              >
-                {item.url_hash}
+              <a target="_blank" href={item.redirectionUrl}>
+                {item.redirectionUrl}
               </a>
             </button>
           </div>

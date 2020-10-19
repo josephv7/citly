@@ -5,3 +5,10 @@ axios.defaults.headers = {
     "Content-Type": "application/json",
   };
   
+  const setAuthTokenHeader = token => {
+    axios.defaults.headers = {
+      "X-Auth-Token": `${token}`,
+    };
+  };
+
+  export default setAuthTokenHeader

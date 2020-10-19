@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import urlShortnerAPI from "../apis/urlShortner";
 import UrlList from "./UrlList";
 import Card from "./Card";
+import { useHistory } from "react-router-dom";
+
 import { useToasts } from "react-toast-notifications";
 
 const UrlShortner = ({ type }) => {
@@ -9,10 +11,10 @@ const UrlShortner = ({ type }) => {
   const [success, setSuccess] = useState(false);
   const [userUrls, setUserUrls] = useState([]);
   const { addToast } = useToasts();
-
+  const hisory = useHistory();
   const sendParams = (e) => {
     setUrl(e.target.value);
-    console.log(url);
+    // console.log(url);
   };
 
   async function submit(e) {
@@ -20,33 +22,30 @@ const UrlShortner = ({ type }) => {
 
     let pattern = /^((http|https):\/\/)/;
     if (!pattern.test(url)) {
-      console.log("no protocol");
       addToast("Invalid Protocol", { appearance: "error", autoDismiss: true });
     } else {
       setSuccess(false);
-      console.log("here 1");
       const response = await urlShortnerAPI.shorten({ url, user_id: 1 });
-      console.log(response);
+      // console.log(response);
 
       if (response.status == 200) setSuccess(true);
     }
   }
 
   const fetchUserUrlList = async () => {
-    // if (success) {
-    const response = await urlShortnerAPI.listUserUrls(1);
-    console.log(response);
-    setUserUrls(response.data.urlList);
-    // }
+    try {
+      const response = await urlShortnerAPI.listUserUrls(1);
+      setUserUrls(response.data.urlList);
+    } catch (error) {
+      if (error.response.status === 401) hisory.push("/");
+    }
   };
 
   useEffect(() => {
-    console.log("use effect success");
     fetchUserUrlList();
   }, [success]);
 
   useEffect(() => {
-    console.log("initial fetch");
     fetchUserUrlList();
   }, []);
 

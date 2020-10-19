@@ -1,7 +1,8 @@
-import React, { useState, useRef } from "react";
+import React, { useState } from "react";
 import authenticationAPI from "../apis/authentication";
-import { useHistory } from "react-router-dom";
+import setAuthTokenHeader from "../apis/index";
 import { useToasts } from "react-toast-notifications";
+import { useHistory } from "react-router-dom";
 import _ from "lodash";
 
 const Form = ({ type }) => {
@@ -18,6 +19,7 @@ const Form = ({ type }) => {
         "authToken",
         response.data.user.authentication_token
       );
+      setAuthTokenHeader(localStorage.getItem("authToken"));
       history.push("/dashboard");
     } catch (error) {
       if (error.response.status === 401)
@@ -37,6 +39,7 @@ const Form = ({ type }) => {
         "authToken",
         response.data.user.authentication_token
       );
+      setAuthTokenHeader(localStorage.getItem("authToken"));
       history.push("/dashboard");
       console.log(response.data.user.authentication_token);
     } catch (error) {
