@@ -1,13 +1,10 @@
-import React, {useEffect} from "react";
+import React, { useEffect } from "react";
 import Card from "./Card";
 import Form from "./Form";
+import authenticated from "./helpers/auth";
 import { ToastProvider } from "react-toast-notifications";
 
 const Signup = ({ history }) => {
-  const authenticated = () => {
-    console.log(localStorage.getItem("authToken"));
-    return !(localStorage.getItem("authToken") === null);
-  };
   const changeLocation = () => {
     history.push("/");
   };
@@ -18,9 +15,9 @@ const Signup = ({ history }) => {
     <ToastProvider>
       <Card title={"Signup"}>
         <Form type={"signup"} />
-        <div className="d-flex flex-row justify-content-end">
-          <button onClick={changeLocation} className="btn btn-link">
-            Go To Login Page
+        <div className="d-flex flex-row justify-content-center">
+          <button onClick={() => changeLocation} className="btn btn-link">
+            Already a user ? Log In
           </button>
         </div>
       </Card>

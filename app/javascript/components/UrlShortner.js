@@ -12,6 +12,7 @@ const UrlShortner = ({ type }) => {
   const [userUrls, setUserUrls] = useState([]);
   const { addToast } = useToasts();
   const hisory = useHistory();
+
   const sendParams = (e) => {
     setUrl(e.target.value);
     // console.log(url);
@@ -68,7 +69,7 @@ const UrlShortner = ({ type }) => {
           <button
             type="submit"
             className="btn btn-primary ml-1"
-            onClick={submit}
+            onClick={() => submit}
           >
             Submit
           </button>
