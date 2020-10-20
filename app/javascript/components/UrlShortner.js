@@ -27,7 +27,7 @@ const UrlShortner = () => {
       addToast("Invalid Protocol", { appearance: "error", autoDismiss: true });
     } else {
       setSuccess(false);
-      const response = await urlShortnerAPI.shorten({ url, user_id: 1 });
+      const response = await urlShortnerAPI.shorten({ url });
       // console.log(response);
 
       if (response.status == 200) setSuccess(true);
@@ -37,7 +37,7 @@ const UrlShortner = () => {
   const fetchUserUrlList = async () => {
     setAuthTokenHeader(localStorage.getItem("authToken"));
     try {
-      const response = await urlShortnerAPI.listUserUrls(1);
+      const response = await urlShortnerAPI.listUserUrls();
       setUserUrls(response.data.urlList);
     } catch (error) {
       if (error.response.status === 401) hisory.push("/");
