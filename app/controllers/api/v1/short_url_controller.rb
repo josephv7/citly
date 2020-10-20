@@ -20,7 +20,9 @@ class Api::V1::ShortUrlController < Api::V1::BaseController
     end
 
     def get_user_urls
-        @url_list = ShortUrl.where(user_id: url_list_params[:user_id]).reverse_order
+        # @url_list = ShortUrl.where(user_id: url_list_params[:user_id]).reverse_order
+        # @log_count = ShortUrl.joins(:logs).group(:short_url_id).where(user_id: url_list_params[:user_id]).count(:short_url_id)
+        @url_list = ShortUrl.select('short_urls.*, count(logs.id) as logs_count').where(user_id: url_list_params[:user_id]).left_joins(:logs).group('short_urls.id')
         # render json: { notice: "Data Fetched Successfully", data: @url_list, host: request.host_with_port}, status: :ok
     end
 
