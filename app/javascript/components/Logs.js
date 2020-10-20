@@ -28,7 +28,7 @@ const Logs = () => {
             {logList?.map((item, index) => {
               return (
                 <li className="list-group-item my-1" key={index}>
-                  {item.timeStamp}
+                  {`${item.timeStamp} ${item.ipAddress}`}
                 </li>
               );
             })}
