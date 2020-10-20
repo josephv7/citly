@@ -16,7 +16,7 @@ const Login = ({ history }) => {
       <Card title={"Login"}>
         <Form type={"login"} />
         <div className="d-flex flex-row justify-content-center">
-          <button onClick={() => changeLocation} className="btn btn-link">
+          <button onClick={changeLocation} className="btn btn-link">
             Not a User ? Register
           </button>
         </div>
