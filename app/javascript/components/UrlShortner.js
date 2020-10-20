@@ -2,13 +2,12 @@ import React, { useState, useEffect } from "react";
 import urlShortnerAPI from "../apis/urlShortner";
 import UrlList from "./UrlList";
 import Card from "./Card";
-import Logs from "./Logs";
 import setAuthTokenHeader from "../apis/index";
 
 import { useHistory } from "react-router-dom";
 import { useToasts } from "react-toast-notifications";
 
-const UrlShortner = ({ type }) => {
+const UrlShortner = () => {
   const [url, setUrl] = useState("");
   const [success, setSuccess] = useState(false);
   const [userUrls, setUserUrls] = useState([]);

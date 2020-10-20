@@ -26,14 +26,14 @@ const UrlList = ({ userUrlList }) => {
               </a>
             </button>
             <button type="button" className=" btn btn-light w-10" disabled>
-              1
+              {item.count}
             </button>
             <button
               type="button"
               className=" btn btn-light w-25"
               onClick={() => showLogs(item.id)}
             >
-              Logs
+              View Logs
             </button>
           </div>
         );
