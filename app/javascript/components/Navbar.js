@@ -27,10 +27,6 @@ const Navbar = () => {
         <ul className="navbar-nav mr-auto">
           <li className="nav-item active mx-1">
             <Link to="/dashboard">Home</Link>
-            {/* <span className="sr-only">(current)</span> */}
-          </li>
-          <li className="nav-item mx-1">
-            <Link to="/logs">Logs</Link>
           </li>
         </ul>
         <button className="btn btn-link my-2 my-sm-0" onClick={UserLogout}>

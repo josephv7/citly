@@ -2,7 +2,9 @@ import React, { useState, useEffect } from "react";
 import urlShortnerAPI from "../apis/urlShortner";
 import UrlList from "./UrlList";
 import Card from "./Card";
+import Logs from "./Logs";
 import setAuthTokenHeader from "../apis/index";
+
 import { useHistory } from "react-router-dom";
 import { useToasts } from "react-toast-notifications";
 
@@ -54,8 +56,7 @@ const UrlShortner = ({ type }) => {
   return (
     <div>
       <Card title={"Citly - A URL Shortener"}>
-        <label htmlFor="exampleInputEmail1">Enter URL Here</label>
-        <form className="form-inline">
+        <form className="form-inline d-flex justify-content-center mt-2">
           <div className="form-group w-75">
             <input
               type="text"
@@ -69,7 +70,7 @@ const UrlShortner = ({ type }) => {
           <button
             type="submit"
             className="btn btn-primary ml-1"
-            onClick={() => submit}
+            onClick={submit}
           >
             Submit
           </button>

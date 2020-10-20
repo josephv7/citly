@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { useHistory } from "react-router-dom";
 import Card from "./Card";
 const UrlList = ({ userUrlList }) => {
@@ -17,15 +17,22 @@ const UrlList = ({ userUrlList }) => {
             className="d-flex flex-row justify-content-between align-items-center w-100 flex-wrap"
             key={index}
           >
-            <button type="button" className="btn btn-light w-50 my-1" disabled>
+            <button type="button" className="btn btn-light w-25 my-1" disabled>
               {item.url}
             </button>
-            <button type="button" className="btn btn-light w-50">
+            <button type="button" className="btn btn-light w-25">
               <a target="_blank" href={`http://${item.redirectionUrl}`}>
                 {item.redirectionUrl}
               </a>
             </button>
-            <button type="button" onClick={() => showLogs(item.id)}>
+            <button type="button" className=" btn btn-light w-10" disabled>
+              1
+            </button>
+            <button
+              type="button"
+              className=" btn btn-light w-25"
+              onClick={() => showLogs(item.id)}
+            >
               Logs
             </button>
           </div>
