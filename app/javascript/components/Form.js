@@ -22,6 +22,7 @@ const Form = ({ type }) => {
       setAuthTokenHeader(response.data.user.authentication_token);
       history.push("/dashboard");
     } catch (error) {
+      console.log(error);
       if (error.response.status === 401)
         addToast("Invalid Username or Password", { appearance: "error" });
     }

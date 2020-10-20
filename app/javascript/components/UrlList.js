@@ -14,13 +14,13 @@ const UrlList = ({ userUrlList }) => {
       {userUrlList.map((item, index) => {
         return (
           <div
-            className="d-flex flex-row justify-content-between align-items-center w-100 flex-wrap"
+            className="d-flex flex-row justify-content-around align-items-center w-100 flex-wrap"
             key={index}
           >
             <button type="button" className="btn btn-light w-25 my-1" disabled>
               {item.url}
             </button>
-            <button type="button" className="btn btn-light w-25">
+            <button type="button" className="btn btn-light w-50">
               <a target="_blank" href={`http://${item.redirectionUrl}`}>
                 {item.redirectionUrl}
               </a>
@@ -30,7 +30,7 @@ const UrlList = ({ userUrlList }) => {
             </button>
             <button
               type="button"
-              className=" btn btn-light w-25"
+              className=" btn btn-light w-10"
               onClick={() => showLogs(item.id)}
             >
               View Logs

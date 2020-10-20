@@ -24,7 +24,7 @@ const App = () => {
           path="/dashboard"
           redirectRoute="/"
           component={Dashboard}
-          condition={authenticated()}
+          condition={authenticated}
         />
         <Route path="/" component={Login} />
       </Switch>

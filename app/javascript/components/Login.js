@@ -21,7 +21,7 @@ const Login = ({ history }) => {
           </button>
         </div>
       </Card>
-    </ToastProvider>
+      </ToastProvider>
   );
 };
 
