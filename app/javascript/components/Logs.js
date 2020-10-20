@@ -16,29 +16,32 @@ const Logs = () => {
       if (error.response.status === 401) console.log(error);
     }
   }, []);
-
-  return (
-    <ToastProvider>
-      <Card>
-        {logList?.map((item, index) => {
-          return (
-            <div
-              className="d-flex flex-row justify-content-between align-items-center w-100 flex-wrap"
-              key={index}
-            >
-              <button
-                type="button"
-                className="btn btn-light w-50 my-1"
-                disabled
+  if (logList.length > 0) {
+    return (
+      <ToastProvider>
+        <Card>
+          {logList?.map((item, index) => {
+            return (
+              <div
+                className="d-flex flex-row justify-content-between align-items-center w-100 flex-wrap"
+                key={index}
               >
-                {item.timeStamp}
-              </button>
-            </div>
-          );
-        })}
-      </Card>
-    </ToastProvider>
-  );
+                <button
+                  type="button"
+                  className="btn btn-light w-50 my-1"
+                  disabled
+                >
+                  {item.timeStamp}
+                </button>
+              </div>
+            );
+          })}
+        </Card>
+      </ToastProvider>
+    );
+  } else {
+    return <h1>No Logs!</h1>;
+  }
 };
 
 export default Logs;

@@ -1,8 +1,17 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Card from "./Card";
 import Form from "./Form";
 import { ToastProvider } from "react-toast-notifications";
 const Login = ({ history }) => {
+  const authenticated = () => {
+    console.log(localStorage.getItem("authToken"));
+    return !(localStorage.getItem("authToken") === null);
+  };
+  useEffect(() => {
+    if(authenticated())
+      history.push("/dashboard")
+  }, []);
+
   const changeLocation = () => {
     history.push("/signup");
   };

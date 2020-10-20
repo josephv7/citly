@@ -19,7 +19,7 @@ const Form = ({ type }) => {
         "authToken",
         response.data.user.authentication_token
       );
-      setAuthTokenHeader(localStorage.getItem("authToken"));
+      setAuthTokenHeader(response.data.user.authentication_token);
       history.push("/dashboard");
     } catch (error) {
       if (error.response.status === 401)

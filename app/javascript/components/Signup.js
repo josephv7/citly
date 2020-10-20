@@ -1,12 +1,19 @@
-import React from "react";
+import React, {useEffect} from "react";
 import Card from "./Card";
 import Form from "./Form";
 import { ToastProvider } from "react-toast-notifications";
 
 const Signup = ({ history }) => {
+  const authenticated = () => {
+    console.log(localStorage.getItem("authToken"));
+    return !(localStorage.getItem("authToken") === null);
+  };
   const changeLocation = () => {
     history.push("/");
   };
+  useEffect(() => {
+    if (authenticated()) history.push("/dashboard");
+  }, []);
   return (
     <ToastProvider>
       <Card title={"Signup"}>
