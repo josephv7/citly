@@ -29,6 +29,7 @@ const UrlShortner = () => {
     let pattern = /^((http|https):\/\/)/;
     if (!pattern.test(url)) {
       addToast("Invalid Protocol", { appearance: "error", autoDismiss: true });
+      setShorten(false);
     } else {
       setSuccess(false);
       try {
