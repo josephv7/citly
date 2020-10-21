@@ -1,28 +1,35 @@
 import React, { useEffect, useState } from "react";
 import Card from "./Card";
 import fetchLogs from "../apis/logs";
-import { useParams } from "react-router-dom";
+import Navbar from "./Navbar";
+import { useParams, useHistory } from "react-router-dom";
 import { ToastProvider, useToasts } from "react-toast-notifications";
 import { Link } from "react-router-dom";
 
 const Logs = () => {
   let { id } = useParams();
+  const history = useHistory();
   const [logList, setState] = useState([]);
-  // const { addToast } = useToasts();
+
   useEffect(() => {
     async function logger() {
       try {
         const response = await fetchLogs(id);
         setState(response.data.logList);
       } catch (error) {
-        if (error.response.status === 401) console.log(error);
+        if (error.response.status === 401) {
+          localStorage.removeItem("authToken");
+          history.push("/");
+        }
       }
     }
     logger();
   }, []);
+
   if (logList.length > 0) {
     return (
       <ToastProvider>
+        <Navbar />
         <Card>
           <ul className="list-group">
             {logList?.map((item, index) => {

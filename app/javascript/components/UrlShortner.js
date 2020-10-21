@@ -27,10 +27,15 @@ const UrlShortner = () => {
       addToast("Invalid Protocol", { appearance: "error", autoDismiss: true });
     } else {
       setSuccess(false);
-      const response = await urlShortnerAPI.shorten({ url });
-      // console.log(response);
-
-      if (response.status == 200) setSuccess(true);
+      try {
+        const response = await urlShortnerAPI.shorten({ url });
+        if (response.status == 200) setSuccess(true);
+      } catch (error) {
+        if (error.response.status === 401) {
+          localStorage.removeItem("authToken");
+          history.push("/");
+        }
+      }
     }
   }
 
@@ -40,7 +45,10 @@ const UrlShortner = () => {
       const response = await urlShortnerAPI.listUserUrls();
       setUserUrls(response.data.urlList);
     } catch (error) {
-      if (error.response.status === 401) hisory.push("/");
+      if (error.response.status === 401) {
+        localStorage.removeItem("authToken");
+        hisory.push("/");
+      }
     }
   };
 
