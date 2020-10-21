@@ -15,14 +15,22 @@ class Api::V1::ShortUrlController < Api::V1::BaseController
     
     def show
         short_url = ShortUrl.where(url_hash: params[:url_hash]).first
+
+        if short_url.nil?
+            # respond_with_error("Shop Does Not Exists", 404)
+            render
+        else
+            p "==========================="
+            p request.headers["User-Agent"]
+            p "=========================="
+            browser = Browser.new(request.headers["User-Agent"], accept_language: "en-us")
+            p browser.platform.name
+            Log.create(short_url_id: short_url[:id],user_id: short_url[:user_id], ip_address: request.remote_ip, platform_name: browser.platform.name)
+            redirect_to short_url[:url]
+        end
+
        
-        p "==========================="
-        p request.headers["User-Agent"]
-        p "=========================="
-        browser = Browser.new(request.headers["User-Agent"], accept_language: "en-us")
-        p browser.platform.name
-        Log.create(short_url_id: short_url[:id],user_id: short_url[:user_id], ip_address: request.remote_ip, platform_name: browser.platform.name)
-        redirect_to short_url[:url]
+       
     end
 
     def index
