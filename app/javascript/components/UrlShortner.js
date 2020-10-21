@@ -78,6 +78,7 @@ const UrlShortner = () => {
             type="submit"
             className="btn btn-primary ml-1"
             onClick={submit}
+            disabled={url.length === 0}
           >
             Submit
           </button>
