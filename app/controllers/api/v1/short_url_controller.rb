@@ -15,7 +15,13 @@ class Api::V1::ShortUrlController < Api::V1::BaseController
     
     def show
         short_url = ShortUrl.where(url_hash: params[:url_hash]).first
-        Log.create(short_url_id: short_url[:id],user_id: short_url[:user_id], ip_address: request.remote_ip)
+       
+        p "==========================="
+        p request.headers["User-Agent"]
+        p "=========================="
+        browser = Browser.new(request.headers["User-Agent"], accept_language: "en-us")
+        p browser.platform.name
+        Log.create(short_url_id: short_url[:id],user_id: short_url[:user_id], ip_address: request.remote_ip, platform_name: browser.platform.name)
         redirect_to short_url[:url]
     end
 
