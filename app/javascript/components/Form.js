@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import authenticationAPI from "../apis/authentication";
 import setAuthTokenHeader from "../apis/index";
+import Spinner from "./Spinner";
+
 import { useToasts } from "react-toast-notifications";
 import { useHistory } from "react-router-dom";
 import _ from "lodash";
@@ -8,6 +10,7 @@ import _ from "lodash";
 const Form = ({ type }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [submit, setSubmit] = useState(false);
   const history = useHistory();
   const { addToast } = useToasts();
 
@@ -30,11 +33,13 @@ const Form = ({ type }) => {
 
   const signupUser = async () => {
     try {
+      setSubmit(true);
       const response = await authenticationAPI.signup({
         email,
         password,
         password_confirmation: password,
       });
+      setSubmit(false);
       console.log(response.data.user);
       localStorage.setItem(
         "authToken",
@@ -79,14 +84,24 @@ const Form = ({ type }) => {
           onChange={(e) => setPassword(e.target.value)}
         />
       </div>
-      <button
-        type="submit"
-        className="btn btn-primary"
-        onClick={submitForm}
-        disabled={email.length === 0 || password.length === 0}
-      >
-        Submit
-      </button>
+      {submit ? (
+        <button
+          type="submit"
+          className="btn btn-primary ml-1"
+          disabled={email.length === 0 || password.length === 0}
+        >
+          <Spinner />
+        </button>
+      ) : (
+        <button
+          type="submit"
+          className="btn btn-primary"
+          onClick={submitForm}
+          disabled={email.length === 0 || password.length === 0}
+        >
+          Submit
+        </button>
+      )}
     </form>
   );
 };

@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import urlShortnerAPI from "../apis/urlShortner";
 import UrlList from "./UrlList";
 import Card from "./Card";
 import setAuthTokenHeader from "../apis/index";
+import Spinner from "./Spinner";
 
 import { useHistory } from "react-router-dom";
 import { useToasts } from "react-toast-notifications";
@@ -11,6 +12,9 @@ const UrlShortner = () => {
   const [url, setUrl] = useState("");
   const [success, setSuccess] = useState(false);
   const [userUrls, setUserUrls] = useState([]);
+  const [shorten, setShorten] = useState(false);
+  const urlField = useRef(null);
+
   const { addToast } = useToasts();
   const hisory = useHistory();
 
@@ -21,7 +25,7 @@ const UrlShortner = () => {
 
   async function submit(e) {
     e.preventDefault();
-
+    setShorten(true);
     let pattern = /^((http|https):\/\/)/;
     if (!pattern.test(url)) {
       addToast("Invalid Protocol", { appearance: "error", autoDismiss: true });
@@ -29,7 +33,11 @@ const UrlShortner = () => {
       setSuccess(false);
       try {
         const response = await urlShortnerAPI.shorten({ url });
-        if (response.status == 200) setSuccess(true);
+        if (response.status == 200) {
+          setSuccess(true);
+          setShorten(false);
+          urlField.current.value = "";
+        }
       } catch (error) {
         if (error.response.status === 401) {
           localStorage.removeItem("authToken");
@@ -71,17 +79,27 @@ const UrlShortner = () => {
               aria-describedby="LongUrl"
               placeholder="Enter Complete URL Here"
               onChange={sendParams}
+              ref={urlField}
             />
           </div>
-
-          <button
-            type="submit"
-            className="btn btn-primary ml-1"
-            onClick={submit}
-            disabled={url.length === 0}
-          >
-            Submit
-          </button>
+          {shorten ? (
+            <button
+              type="submit"
+              className="btn btn-primary ml-1"
+              disabled={url.length === 0}
+            >
+              <Spinner />
+            </button>
+          ) : (
+            <button
+              type="submit"
+              className="btn btn-primary ml-1"
+              onClick={submit}
+              disabled={url.length === 0}
+            >
+              Submit
+            </button>
+          )}
         </form>
       </Card>
 
