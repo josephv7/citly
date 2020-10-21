@@ -1,7 +1,6 @@
 namespace :api do
     namespace :v1 do
-        resources :log, defaults: {format: :json}
-            get 'logs/:id' => 'log#get_logs'
+        resources :log, only: [:show], defaults: {format: :json}
         resources :short_url, only: [:index], defaults: {format: :json}
             post 'short_url' => 'short_url#create'
             get 'url_list' => 'short_url#get_user_urls'
