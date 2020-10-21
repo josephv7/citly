@@ -34,7 +34,7 @@ class Api::V1::ShortUrlController < Api::V1::BaseController
     end
 
     def index
-        @url_list = ShortUrl.select('short_urls.*, count(logs.id) as logs_count').where(user_id: current_user.id).left_joins(:logs).group('short_urls.id')
+        @url_list = ShortUrl.select('short_urls.*, count(logs.id) as logs_count').where(user_id: current_user.id).left_joins(:logs).group('short_urls.id').reverse_order
     end
 
 
