@@ -19,7 +19,7 @@ class Api::V1::ShortUrlController < Api::V1::BaseController
         redirect_to short_url[:url]
     end
 
-    def get_user_urls
+    def index
         @url_list = ShortUrl.select('short_urls.*, count(logs.id) as logs_count').where(user_id: current_user.id).left_joins(:logs).group('short_urls.id')
     end
 
