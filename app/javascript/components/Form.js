@@ -16,16 +16,19 @@ const Form = ({ type }) => {
 
   const loginUser = async () => {
     try {
+      setSubmit(true);
       const response = await authenticationAPI.login({ email, password });
       console.log(`success ${response}`);
       localStorage.setItem(
         "authToken",
         response.data.user.authentication_token
       );
+      setSubmit(false);
       setAuthTokenHeader(response.data.user.authentication_token);
       history.push("/dashboard");
     } catch (error) {
       console.log(error);
+      setSubmit(false);
       if (error.response.status === 401)
         addToast("Invalid Username or Password", { appearance: "error" });
     }
@@ -49,6 +52,7 @@ const Form = ({ type }) => {
       history.push("/dashboard");
       console.log(response.data.user.authentication_token);
     } catch (error) {
+      setSubmit(false);
       if (error.response.status === 422)
         console.log(error.response.data.errors);
       _.forEach(error.response.data.errors, (value, key) => {

@@ -39,6 +39,7 @@ const UrlShortner = () => {
           urlField.current.value = "";
         }
       } catch (error) {
+        setShorten(false);
         if (error.response.status === 401) {
           localStorage.removeItem("authToken");
           history.push("/");
