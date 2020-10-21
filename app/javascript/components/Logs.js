@@ -40,6 +40,7 @@ const Logs = () => {
                 >
                   <p className="text-muted mb-0">{item.timeStamp}</p>
                   <p className="text-muted mb-0">{item.ipAddress}</p>
+                  <p className="text-muted mb-0">{item.platformName!=null?item.platformName:'-'}</p>
                 </li>
               );
             })}
