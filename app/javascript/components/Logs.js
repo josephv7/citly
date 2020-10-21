@@ -27,8 +27,12 @@ const Logs = () => {
           <ul className="list-group">
             {logList?.map((item, index) => {
               return (
-                <li className="list-group-item my-1" key={index}>
-                  {`${item.timeStamp} ${item.ipAddress}`}
+                <li
+                  className="list-group-item d-flex justify-content-between"
+                  key={index}
+                >
+                  <p className="text-muted mb-0">{item.timeStamp}</p>
+                  <p className="text-muted mb-0">{item.ipAddress}</p>
                 </li>
               );
             })}

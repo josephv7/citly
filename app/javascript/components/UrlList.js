@@ -4,6 +4,7 @@ import Card from "./Card";
 const UrlList = ({ userUrlList }) => {
   const history = useHistory();
   const showLogs = (id) => {
+    // console.log("yoyoyo");
     history.push({
       pathname: `/logs/${id}`,
     });
@@ -44,7 +45,7 @@ const UrlList = ({ userUrlList }) => {
         })}
       </Card>
     );
-  }else {
+  } else {
     return (
       <div className="no-logs--container text-center">
         <div className="d-flex flex-column justify-content-center align-items-center">

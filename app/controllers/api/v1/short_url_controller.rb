@@ -1,7 +1,7 @@
 class Api::V1::ShortUrlController < Api::V1::BaseController
 
     before_action :generate_short_url, only: [:create]
-    skip_before_action :authenticate_user_using_token, only: [:find_original_url]
+    skip_before_action :authenticate_user_using_token, only: [:show]
 
     def create
         @url_entry = ShortUrl.new(short_url_params.merge(url_hash: @short_url, user_id: current_user.id))
@@ -13,8 +13,8 @@ class Api::V1::ShortUrlController < Api::V1::BaseController
     end
 
     
-    def find_original_url
-        short_url = ShortUrl.where(url_hash: params[:short_url]).first
+    def show
+        short_url = ShortUrl.where(url_hash: params[:url_hash]).first
         Log.create(short_url_id: short_url[:id],user_id: short_url[:user_id], ip_address: request.remote_ip)
         redirect_to short_url[:url]
     end

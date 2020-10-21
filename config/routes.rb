@@ -6,5 +6,6 @@ Rails.application.routes.draw do
   draw :devise
   draw :api
   root "home#index"
+  get '/s/:short_url', to: redirect('/api/v1/short_url/%{short_url}')
   get '*path', to: 'home#index', via: :all
 end
